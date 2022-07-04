@@ -13,8 +13,14 @@ import { StringDecoder } from "string_decoder";
 import url from "url";
 
 import config from "./config.mjs";
-
+import { create } from "./lib/data.mjs";
 console.log("config", config);
+
+// CREATE FILE
+
+create("test", "newFile", { name: "Ravi Ranjan" }, (err) => {
+	console.log("File create: ", err);
+});
 
 // The server should res;ond to all requests with a string
 
@@ -106,6 +112,12 @@ handlers.sample = (data, cb) => {
 	cb(406, { name: "Sample handler" });
 };
 
+// Ping handler
+
+handlers.ping = (data, cb) => {
+	cb(200);
+};
+
 handlers.notFound = (data, cb) => {
 	cb(404);
 };
@@ -113,4 +125,5 @@ handlers.notFound = (data, cb) => {
 // Define a request router
 const router = {
 	sample: handlers.sample,
+	ping: handlers.ping,
 };
